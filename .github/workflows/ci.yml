@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install
 
+      - name: Prepare types 🛠️
+        run: pnpm nuxt-module-build prepare
+
       - name: Run linter 👀
         run: pnpm run lint
 
