@@ -5,6 +5,10 @@
   "repository": "pmrotule/nuxt-request-timeline",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "20.14.0",
+    "pnpm": "9.x"
+  },
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
