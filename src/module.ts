@@ -6,7 +6,7 @@ export interface ModuleOptions {}
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: "nuxt-request-timeline",
-    configKey: "myModule",
+    configKey: "requestTimeline",
   },
   // Default configuration options of the Nuxt module
   defaults: {},

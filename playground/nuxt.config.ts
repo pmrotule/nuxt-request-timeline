@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['../src/module'],
-  myModule: {},
+  modules: ["../src/module"],
+  requestTimeline: {},
   devtools: { enabled: true },
-})
+});
