@@ -1,5 +1,3 @@
-import RequestTimeline from '../../../src/module'
-
 export default defineNuxtConfig({
-  modules: [RequestTimeline],
+  modules: ['@nuxt/ui', 'nuxt-request-timeline'],
 })

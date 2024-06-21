@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['../src/module'],
-  requestTimeline: {},
   devtools: { enabled: true },
+  modules: ['@nuxt/ui', 'nuxt-request-timeline'],
+  requestTimeline: {},
 })
