@@ -1,0 +1,6 @@
+export const REQUEST_TIMELINE_PKG_NAME = 'nuxt-request-timeline'
+export const REQUEST_TIMELINE_KEY = 'requestTimeline'
+export const REQUEST_TIMELINE_IMPORT_ALIAS = '#requestTimeline'
+export const REQUEST_TIMELINE_ROUTE_NAME = 'request-timeline'
+export const REQUEST_TIMELINE_ROUTE_PATH = '/timeline'
+export const REQUEST_TIMELINE_ROUTE_QUERY = 'tl'
