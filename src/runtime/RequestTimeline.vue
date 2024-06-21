@@ -3,20 +3,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useRoute, onMounted } from '#imports'
+import { ref, useRoute, useHead, onMounted } from '#imports'
 import type { RequestTimeline } from '#requestTimeline'
 
 declare global {
   interface Window {
-    google: any // eslint-disable-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    google: Record<string, any> | undefined
   }
 }
 
 const GOOGLE_CHART_SCRIPT_URL = 'https://www.gstatic.com/charts/loader.js'
 
-const google = window.google
+useHead({
+  title: 'Nuxt Request Timeline',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Visualize your request timeline in a waterfall chart by passing data as url parameters.',
+    },
+  ],
+})
+
+let google: typeof window.google
+
 const route = useRoute()
 const timelineRef = ref<Element | null>(null)
+
+onMounted(initChart)
+
+async function initChart() {
+  await loadScript(GOOGLE_CHART_SCRIPT_URL)
+
+  google = window.google
+
+  if (typeof google !== 'undefined') {
+    google.charts.load('current', { packages: ['timeline'] })
+    google.charts.setOnLoadCallback(drawChart)
+  }
+}
 
 function loadScript(url: string) {
   return new Promise((resolve, reject) => {
@@ -32,7 +58,7 @@ function loadScript(url: string) {
 }
 
 function drawChart() {
-  if (!timelineRef.value) return
+  if (!timelineRef.value || typeof google === 'undefined') return
 
   const chart = new google.visualization.Timeline(timelineRef.value)
   const dataTable = new google.visualization.DataTable()
@@ -60,6 +86,8 @@ function drawChart() {
       if (end > veryEnd) veryEnd = end
     })
   })
+  if (!rows.length) return
+
   rows.forEach(row => {
     // if start > end, reset the end to the very end of the request
     if (row[2] > row[3]) {
@@ -73,15 +101,6 @@ function drawChart() {
 
   chart.draw(dataTable, { timeline: { groupByRowLabel: false } })
 }
-
-async function initChart() {
-  await loadScript(GOOGLE_CHART_SCRIPT_URL)
-
-  google.charts.load('current', { packages: ['timeline'] })
-  google.charts.setOnLoadCallback(drawChart)
-}
-
-onMounted(initChart)
 </script>
 
 <style module lang="scss">

@@ -40,7 +40,6 @@ export default defineNuxtModule<ModuleOptions>({
         name: REQUEST_TIMELINE_ROUTE_NAME,
         path: REQUEST_TIMELINE_ROUTE_PATH,
         file: resolve('./runtime/RequestTimeline.vue'),
-        mode: 'client',
       })
     })
 

@@ -3,7 +3,7 @@ import { RequestTimeline } from './RequestTimeline.js'
 import { generateUrl } from '../utils/timeline.js'
 import { REQUEST_TIMELINE_KEY } from '../constants.js'
 
-const LOG_STYLES = 'background-color: lightblue; border: 3px solid lightblue; color: black;'
+const LOG_STYLES = 'background-color: darkblue; border: 3px solid darkblue; color: white;'
 
 declare module '#app' {
   interface NuxtApp {
