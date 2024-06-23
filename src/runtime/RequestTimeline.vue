@@ -105,6 +105,7 @@ function drawChart() {
 
 <style module lang="scss">
 .timeline {
+  background-color: white;
   height: calc(100vh);
 }
 </style>

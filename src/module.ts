@@ -69,7 +69,7 @@ export default defineNuxtModule<ModuleOptions>({
         ].join('\n'),
     })
 
-    addImports([{ name: 'useRequestTimeline', from: resolve('runtime/composables') }])
+    addImports([{ name: 'useRequestTimeline', from: resolve('./runtime/composables') }])
 
     nuxt.options.alias[REQUEST_TIMELINE_IMPORT_ALIAS] = resolve(
       nuxt.options.buildDir,

@@ -1,4 +1,4 @@
-import { generateUrl } from '../utils/timeline'
+import { generateUrl } from './utils'
 
 type RequestRecord = [number, number]
 type RequestChunks = Record<string, RequestRecord[]>
@@ -59,7 +59,6 @@ export class RequestTimeline {
    */
   start(id: string | (() => string)): () => void {
     // Overrides the "start" method with an empty function if the timeline is disabled
-
     if (!this.isEnabled) this.start = () => () => {}
 
     const record = this.createEmptyRecord()
@@ -77,11 +76,10 @@ export class RequestTimeline {
    */
   end(id: string | (() => string)): void {
     // Overrides the "end" method with an empty function if the timeline is disabled
-
     if (!this.isEnabled) this.end = () => {}
 
     const computedId = this.getComputedId(id)
-    this.requestChunks[computedId] = this.requestChunks[computedId] || this.createEmptyRecord()
+    this.requestChunks[computedId] = this.requestChunks[computedId] || [this.createEmptyRecord()]
 
     const lastIndex = this.requestChunks[computedId].length - 1
     this.requestChunks[computedId][lastIndex][RECORD_END] = this.getRequestTime()
