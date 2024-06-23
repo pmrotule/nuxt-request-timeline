@@ -1,4 +1,5 @@
 import { defineNuxtPlugin } from '#imports'
+import { options } from '#requestTimeline'
 import type { RequestTimeline } from './RequestTimeline.js'
 import { createServerRequestTimeline, getServerRequestTimeline, generateUrl } from './utils.js'
 import { REQUEST_TIMELINE_KEY } from '../constants.js'
@@ -20,7 +21,7 @@ export default defineNuxtPlugin(nuxtApp => {
   if (import.meta.server) {
     requestTimeline?.start('ssr')
   } else {
-    if (process.env.NODE_ENV !== 'production' && nuxtApp.payload.data[REQUEST_TIMELINE_KEY]) {
+    if (options.isEnabled && nuxtApp.payload.data[REQUEST_TIMELINE_KEY]) {
       const timelineUrl = generateUrl(nuxtApp.payload.data[REQUEST_TIMELINE_KEY])
       console.log(`%cRequest timeline available at:\n${timelineUrl}`, LOG_STYLES)
     }
