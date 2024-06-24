@@ -63,6 +63,9 @@ importers:
       '@urql/core':
         specifier: ^5.0.4
         version: 5.0.4(graphql@16.9.0)
+      '@urql/exchange-graphcache':
+        specifier: ^7.1.1
+        version: 7.1.1(@urql/core@5.0.4(graphql@16.9.0))(graphql@16.9.0)
       '@urql/vue':
         specifier: ^1.3.2
         version: 1.3.2(@urql/core@5.0.4(graphql@16.9.0))(vue@3.4.27(typescript@5.4.5))
@@ -1624,6 +1627,11 @@ packages:
 
   '@urql/core@5.0.4':
     resolution: {integrity: sha512-gl86J6B6gWXvvkx5omZ+CaGiPQ0chCUGM0jBsm0zTtkDQPRqufv0NSUN6sp2JhGGtTOB0NR6Pd+w7XAVGGyUOA==}
+
+  '@urql/exchange-graphcache@7.1.1':
+    resolution: {integrity: sha512-9aqgVrFY79MxCQ/u4F4RHZQ4NqToVJJk4I2sQx/5d/lvB9tInA5Z8ZL5XuflaKM7NJ8Pm5HGisB/iD7mKHKriA==}
+    peerDependencies:
+      '@urql/core': ^5.0.0
 
   '@urql/vue@1.3.2':
     resolution: {integrity: sha512-QzuAAoJ0RRby7+HWvI+36IAdH4bpQd1JHVxTE8kYQZEkxtw3rcKapoxFJr/+6ZW9CFHjihdBHy9Kgncm54w86A==}
@@ -7310,6 +7318,14 @@ snapshots:
   '@urql/core@5.0.4(graphql@16.9.0)':
     dependencies:
       '@0no-co/graphql.web': 1.0.7(graphql@16.9.0)
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+
+  '@urql/exchange-graphcache@7.1.1(@urql/core@5.0.4(graphql@16.9.0))(graphql@16.9.0)':
+    dependencies:
+      '@0no-co/graphql.web': 1.0.7(graphql@16.9.0)
+      '@urql/core': 5.0.4(graphql@16.9.0)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql

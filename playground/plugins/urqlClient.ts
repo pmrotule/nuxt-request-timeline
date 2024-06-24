@@ -1,5 +1,6 @@
-import { createClient, ssrExchange, cacheExchange, fetchExchange } from '@urql/core'
+import { createClient, ssrExchange, fetchExchange } from '@urql/core'
 import type { SSRData, Client } from '@urql/core'
+import { cacheExchange } from '@urql/exchange-graphcache'
 import { URQL_CLIENT_NUXT_APP_KEY } from '../composables/useUrqlClient.js'
 
 const CACHE_KEY = '__URQL_DATA__'
@@ -19,7 +20,7 @@ export default defineNuxtPlugin(nuxtApp => {
   const client = createClient({
     url: 'https://rickandmortyapi.com/graphql',
     exchanges: [
-      cacheExchange,
+      cacheExchange({}),
       ssr, // Add `ssr` in front of the `fetchExchange`
       fetchExchange,
     ],
@@ -28,14 +29,10 @@ export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.provide(URQL_CLIENT_NUXT_APP_KEY, client)
 
   nuxtApp.hook('app:rendered', () => {
-    if (import.meta.server) nuxtApp.payload.data[CACHE_KEY] = ssr.extractData()
+    nuxtApp.payload.data[CACHE_KEY] = ssr.extractData()
   })
 
-  if (import.meta.server) {
-    nuxtApp.hook('app:rendered', () => {
-      nuxtApp.payload.data[CACHE_KEY] = ssr.extractData()
-    })
-  } else {
+  if (import.meta.browser) {
     nuxtApp.hook('app:created', () => {
       try {
         ssr.restoreData(nuxtApp.payload.data[CACHE_KEY] as SSRData)

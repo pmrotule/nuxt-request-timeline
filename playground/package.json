@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@urql/core": "^5.0.4",
+    "@urql/exchange-graphcache": "^7.1.1",
     "@urql/vue": "^1.3.2",
     "nuxt": "^3.12.1",
     "nuxt-request-timeline": "workspace:*",
