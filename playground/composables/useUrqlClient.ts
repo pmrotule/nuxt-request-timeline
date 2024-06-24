@@ -20,10 +20,10 @@ export function useUrqlQuery<T = any, V extends AnyVariables = AnyVariables>(
   const client = useUrqlClient()
   provideClient(client)
 
-  const end = timeline?.start(() => getQueryTimelineName({ query, variables }))
+  const end = timeline.start(() => getQueryTimelineName({ query, variables }))
 
   const result = useQuery(options as Parameters<typeof useQuery<T, V>>[0])
-  const hasFetched = result.then(() => end?.())
+  const hasFetched = result.then(() => end())
 
   return { ...result, hasFetched: async () => await hasFetched }
 }

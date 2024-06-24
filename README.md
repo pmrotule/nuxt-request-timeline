@@ -37,22 +37,20 @@ By default, `nuxt-request-timeline` only records the start and end times of the 
 ### Record a specific part of the request:
 
 ```ts
-import { getTimeline } from '@onrunning/on-dev-tools'
-
-// ...
+const timeline = useRequestTimeline()
 
 // The id doesn't have to be unique if you use the
 // returned function to end the execution
-const endTimeline = getTimeline(context)?.start('some-id')
+const end = timeline.start('some-id')
 await someQuery()
-endTimeline?.()
+end()
 ```
 
 ### Analyze the timeline
 
-The SSR request timeline url will be generated and logged in the browser console before the client-side hydration. Look for `Request timeline available at: URL` then click on the link to open the `/timeline` route and see the chart.
+The SSR request timeline url will be generated and logged in the browser console before the client-side hydration. Look for `Request timeline available at: URL` then click on the link to open the `/timeline` route and look at the chart.
 
-[[INSERT SCREENSHOT OF THE TIMELINE HERE]]
+<img width="934" alt="Screenshot 2024-06-24 at 16 08 07" src="https://github.com/pmrotule/nuxt-request-timeline/assets/10983258/e04dad39-691f-42d5-9a5d-172e92729c4a">
 
 #### Generate the url on demand
 
@@ -71,14 +69,6 @@ __NUXT_REQUEST_TIMELINE.generateUrl()
 | `boolean` | `process.env.NODE_ENV !== 'production'` |
 
 Define if the module should be enabled which means injecting the plugin to add the RequestTimeline instance to the `nuxtApp` and adding the timeline route. Since the timeline might not be present in the context, you need to use optional chaining when calling `start` like in the code snippet in [#How to use](#how-to-use).
-
-## API Reference
-
-### `ctx.$config.isTimelineEnabled`
-
-| Type      | Value                                                |
-| --------- | ---------------------------------------------------- |
-| `boolean` | Equals to the value of the module option `isEnabled` |
 
 ## Contribution
 
