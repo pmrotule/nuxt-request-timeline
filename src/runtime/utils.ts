@@ -1,26 +1,13 @@
-import type { IncomingMessage } from 'node:http'
+import type { NuxtApp } from '#app'
 import {
   REQUEST_TIMELINE_KEY,
   REQUEST_TIMELINE_ROUTE_PATH,
   REQUEST_TIMELINE_ROUTE_QUERY,
 } from '../constants'
-import { RequestTimeline } from './RequestTimeline'
+import type { RequestTimeline } from '../types'
 
-export function getServerRequestTimeline(req?: IncomingMessage) {
-  if (req && REQUEST_TIMELINE_KEY in req && req[REQUEST_TIMELINE_KEY] instanceof RequestTimeline) {
-    return req[REQUEST_TIMELINE_KEY]
-  }
-}
-
-export function createServerRequestTimeline(req?: IncomingMessage) {
-  const currentTimeline = getServerRequestTimeline(req)
-  if (currentTimeline) return currentTimeline
-  if (!req) return undefined
-
-  const mutableReq = req as typeof req & { requestTimeline: RequestTimeline }
-  mutableReq[REQUEST_TIMELINE_KEY] = new RequestTimeline()
-
-  return mutableReq[REQUEST_TIMELINE_KEY]
+export function getRequestTimeline(nuxtApp: NuxtApp) {
+  return nuxtApp[`$${REQUEST_TIMELINE_KEY}`]
 }
 
 /**

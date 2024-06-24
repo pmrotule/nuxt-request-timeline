@@ -1,7 +1,7 @@
 import { defineNuxtPlugin } from '#imports'
 import { options } from '#requestTimeline'
-import type { RequestTimeline } from './RequestTimeline.js'
-import { createServerRequestTimeline, getServerRequestTimeline, generateUrl } from './utils.js'
+import { RequestTimeline } from './RequestTimeline.js'
+import { generateUrl } from './utils.js'
 import { REQUEST_TIMELINE_KEY } from '../constants.js'
 
 const LOG_STYLES = 'background-color: darkblue; border: 3px solid darkblue; color: white;'
@@ -13,10 +13,8 @@ declare module '#app' {
 }
 
 export default defineNuxtPlugin(nuxtApp => {
-  const { ssrContext } = nuxtApp
-  const req = ssrContext?.event.node.req
-
-  const requestTimeline = createServerRequestTimeline(req)
+  const requestTimeline = new RequestTimeline()
+  nuxtApp.provide(REQUEST_TIMELINE_KEY, requestTimeline)
 
   if (import.meta.server) {
     requestTimeline?.start('ssr')
@@ -39,13 +37,8 @@ export default defineNuxtPlugin(nuxtApp => {
    * 'app:rendered' is only called on the server
    * @see https://nuxt.com/docs/api/advanced/hooks#app-hooks-runtime
    */
-  nuxtApp.hook('app:rendered', renderContext => {
-    const { ssrContext } = renderContext
-    const req = ssrContext?.event.node.req
-    const requestTimeline = getServerRequestTimeline(req)
-
+  nuxtApp.hook('app:rendered', () => {
     requestTimeline?.end('ssr')
-
     nuxtApp.payload.data[REQUEST_TIMELINE_KEY] = requestTimeline?.requestChunks || {}
   })
 })
