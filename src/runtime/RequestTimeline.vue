@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useRoute, useHead, onMounted } from '#imports'
+import { ref, useRoute, useHead, onMounted, definePageMeta } from '#imports'
 import type { RequestTimeline } from '#requestTimeline'
 
 declare global {
@@ -15,6 +15,10 @@ declare global {
 
 const GOOGLE_CHART_SCRIPT_URL = 'https://www.gstatic.com/charts/loader.js'
 
+definePageMeta({
+  layout: false,
+})
+
 useHead({
   title: 'Nuxt Request Timeline',
   meta: [
@@ -24,6 +28,9 @@ useHead({
         'Visualize your request timeline in a waterfall chart by passing data as url parameters.',
     },
   ],
+  htmlAttrs: {
+    style: 'background-color: white',
+  },
 })
 
 let google: typeof window.google
