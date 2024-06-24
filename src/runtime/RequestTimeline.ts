@@ -46,9 +46,8 @@ export class RequestTimeline {
    * object stringified as query parameter. RequestTimeline.vue will then parse (JSON.parse) the
    * query and generate the timeline graph.
    */
-  generateUrl(options: Parameters<typeof generateUrl>[0] = {}): string {
-    options.requestChunks = options.requestChunks || this.requestChunks
-    return generateUrl(options)
+  generateUrl(requestChunks?: RequestChunks): string {
+    return generateUrl(requestChunks || this.requestChunks)
   }
 
   /**

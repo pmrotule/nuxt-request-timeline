@@ -1,4 +1,4 @@
-import { defineNuxtPlugin } from '#imports'
+import { defineNuxtPlugin, useRouter } from '#imports'
 import { options } from '#requestTimeline'
 import { RequestTimeline } from './RequestTimeline.js'
 import { generateUrl } from './utils.js'
@@ -12,25 +12,41 @@ declare module '#app' {
   }
 }
 
+declare global {
+  interface Window {
+    __NUXT_REQUEST_TIMELINE: RequestTimeline
+  }
+}
+
 export default defineNuxtPlugin(nuxtApp => {
   const requestTimeline = new RequestTimeline()
   nuxtApp.provide(REQUEST_TIMELINE_KEY, requestTimeline)
 
+  // Stop here if the module is not enabled
+  if (!options.isEnabled) {
+    requestTimeline.isEnabled = false
+    return
+  }
+
   if (import.meta.server) {
     requestTimeline?.start('ssr')
   } else {
-    if (options.isEnabled && nuxtApp.payload.data[REQUEST_TIMELINE_KEY]) {
+    window.__NUXT_REQUEST_TIMELINE = requestTimeline
+
+    if (nuxtApp.payload.data[REQUEST_TIMELINE_KEY]) {
       const timelineUrl = generateUrl(nuxtApp.payload.data[REQUEST_TIMELINE_KEY])
       console.log(`%cRequest timeline available at:\n${timelineUrl}`, LOG_STYLES)
     }
+    const router = useRouter()
+
     // Reset the timeline on router.beforeEach for the following navigations within the SPA.
-    // const unregisterAfterEach = ctx.app.router?.afterEach(() => {
-    //   ctx.app.router?.beforeEach((_to, _from, next) => {
-    //     requestTimeline.reset()
-    //     next()
-    //   })
-    //   unregisterAfterEach?.()
-    // })
+    const unregisterAfterEach = router.afterEach(() => {
+      router.beforeEach((_to, _from, next) => {
+        requestTimeline.reset()
+        next()
+      })
+      unregisterAfterEach?.()
+    })
   }
 
   /**
