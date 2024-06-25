@@ -1,6 +1,6 @@
 {
   "name": "nuxt-request-timeline",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Nuxt module to visualiaze your request timeline using a waterfall chart",
   "type": "module",
   "engines": {
