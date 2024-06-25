@@ -11,6 +11,8 @@ Nuxt module to record the execution time of different parts of the SSR request i
   <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-request-timeline?file=playground%2Fapp.vue) -->
   <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
+<img width="934" alt="Screenshot 2024-06-24 at 16 08 07" src="https://github.com/pmrotule/nuxt-request-timeline/assets/10983258/e04dad39-691f-42d5-9a5d-172e92729c4a">
+
 ## Setup
 
 Install the module to your Nuxt application with one command:
@@ -50,7 +52,7 @@ end()
 
 The SSR request timeline url will be generated and logged in the browser console before the client-side hydration. Look for `Request timeline available at: URL` then click on the link to open the `/timeline` route and look at the chart.
 
-<img width="934" alt="Screenshot 2024-06-24 at 16 08 07" src="https://github.com/pmrotule/nuxt-request-timeline/assets/10983258/e04dad39-691f-42d5-9a5d-172e92729c4a">
+<img width="674" alt="image" src="https://github.com/pmrotule/nuxt-request-timeline/assets/10983258/7cc7d426-e250-4a62-93d3-7a0f3da5aacf">
 
 #### Generate the url on demand
 
