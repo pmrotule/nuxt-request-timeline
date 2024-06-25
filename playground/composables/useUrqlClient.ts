@@ -1,6 +1,7 @@
 import type { DocumentNode } from 'graphql'
 import { provideClient, useQuery } from '@urql/vue'
 import type { AnyVariables } from '@urql/vue'
+import { getQueryTimelineName } from 'nuxt-request-timeline/utils'
 
 export const URQL_CLIENT_NUXT_APP_KEY = 'urql'
 
@@ -13,9 +14,7 @@ export function useUrqlQuery<T = any, V extends AnyVariables = AnyVariables>(
   options: Omit<Parameters<typeof useQuery<T, V>>[0], 'query'> & { query: DocumentNode }
 ) {
   const { query, variables } = options
-
   const timeline = useRequestTimeline()
-  const { getQueryTimelineName } = useRequestTimelineUtils()
 
   const client = useUrqlClient()
   provideClient(client)

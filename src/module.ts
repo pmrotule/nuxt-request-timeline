@@ -12,7 +12,7 @@ import {
   REQUEST_TIMELINE_IMPORT_ALIAS,
   REQUEST_TIMELINE_ROUTE_NAME,
   REQUEST_TIMELINE_ROUTE_PATH,
-} from './constants.js'
+} from './runtime/constants.js'
 import type { RequestTimeline } from './runtime/RequestTimeline'
 import type { ModuleOptions } from './types'
 
@@ -69,12 +69,7 @@ export default defineNuxtModule<ModuleOptions>({
         ].join('\n'),
     })
 
-    addImports([
-      ...['useRequestTimeline', 'useRequestTimelineUtils'].map(name => ({
-        name,
-        from: resolve('runtime/composables'),
-      })),
-    ])
+    addImports([{ name: 'useRequestTimeline', from: resolve('runtime/composables') }])
 
     nuxt.options.alias[REQUEST_TIMELINE_IMPORT_ALIAS] = resolve(
       nuxt.options.buildDir,

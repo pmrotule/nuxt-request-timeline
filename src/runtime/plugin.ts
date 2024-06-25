@@ -2,7 +2,7 @@ import { defineNuxtPlugin, useRouter } from '#imports'
 import { options } from '#requestTimeline'
 import { RequestTimeline } from './RequestTimeline.js'
 import { generateUrl } from './utils.js'
-import { REQUEST_TIMELINE_KEY } from '../constants.js'
+import { REQUEST_TIMELINE_KEY } from './constants.js'
 
 const LOG_STYLES = 'background-color: darkblue; border: 3px solid darkblue; color: white;'
 

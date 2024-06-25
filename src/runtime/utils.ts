@@ -4,7 +4,7 @@ import {
   REQUEST_TIMELINE_KEY,
   REQUEST_TIMELINE_ROUTE_PATH,
   REQUEST_TIMELINE_ROUTE_QUERY,
-} from '../constants'
+} from './constants'
 import type { RequestTimeline } from '../types'
 
 type AnyObject = Record<string, unknown>
