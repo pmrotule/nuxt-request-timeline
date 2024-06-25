@@ -2,8 +2,6 @@
   "name": "nuxt-request-timeline",
   "version": "1.0.0",
   "description": "Nuxt module to visualiaze your request timeline using a waterfall chart",
-  "repository": "pmrotule/nuxt-request-timeline",
-  "license": "MIT",
   "type": "module",
   "engines": {
     "node": "20.14.0",
@@ -12,8 +10,10 @@
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
+      "import": "./dist/module.mjs"
+    },
+    "./types": {
+      "types": "./src/types.d.ts"
     }
   },
   "main": "./dist/module.cjs",
@@ -44,6 +44,11 @@
     "@nuxt/schema": "^3.12.1",
     "@nuxt/test-utils": "^3.13.1",
     "@nuxt/ui": "^2.17.0",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^10.0.6",
+    "@semantic-release/npm": "^12.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.1",
     "@types/node": "^20.14.2",
     "changelogen": "^0.5.5",
     "eslint": "^9.4.0",
@@ -55,5 +60,42 @@
   },
   "resolutions": {
     "nuxt-request-timeline": "link:."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmrotule/nuxt-request-timeline.git"
+  },
+  "author": {
+    "name": "Pierre-Michel Brown"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pmrotule/nuxt-request-timeline/issues"
+  },
+  "homepage": "https://github.com/pmrotule/nuxt-request-timeline#readme",
+  "release": {
+    "branches": [
+      {
+        "name": "main"
+      },
+      {
+        "name": "beta",
+        "channel": "beta",
+        "prerelease": true
+      }
+    ],
+    "repositoryUrl": "https://github.com/pmrotule/nuxt-request-timeline.git",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   }
 }
