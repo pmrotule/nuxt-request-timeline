@@ -35,6 +35,14 @@ export default defineNuxtModule<ModuleOptions>({
 
     addPlugin(resolve('./runtime/plugin'))
 
+    nuxt.hook('nitro:config', (nitro) => {
+      nitro.routeRules = {
+        // Cache SSR request of /request-timeline path for 1 hour
+        [`/**${REQUEST_TIMELINE_ROUTE_PATH}`]: { swr: 60 * 60 },
+        ...nitro.routeRules,
+      }
+    })
+
     extendPages(pages => {
       pages.push({
         name: REQUEST_TIMELINE_ROUTE_NAME,
