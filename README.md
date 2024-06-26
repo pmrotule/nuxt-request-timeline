@@ -7,7 +7,7 @@
 
 Nuxt module to record the execution time of different parts of the SSR request in order to analyze it using a [waterfall chart](https://developers.google.com/chart/interactive/docs/gallery/timeline).
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
+- [✨ &nbsp;Release Notes](https://github.com/pmrotule/nuxt-request-timeline/releases)
   <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-request-timeline?file=playground%2Fapp.vue) -->
   <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
@@ -41,8 +41,13 @@ By default, `nuxt-request-timeline` only records the start and end times of the 
 ```ts
 const timeline = useRequestTimeline()
 
-// The id doesn't have to be unique if you use the
-// returned function to end the execution
+/**
+ * The provided id will be displayed as the column header
+ * in the waterfall chart.
+ *
+ * The id doesn't have to be unique if you use the
+ * returned function to end the execution
+ */
 const end = timeline.start('some-id')
 await someQuery()
 end()
@@ -61,6 +66,8 @@ The client-side urls are not being generated automatically, but can be generated
 ```js
 __NUXT_REQUEST_TIMELINE.generateUrl()
 ```
+
+Note: the timeline is reset before each route (`router.beforeEach` hook). When running the command from the browser console, it will generate a timeline including everything that was recorded since the last router change.
 
 ## Module Options
 
