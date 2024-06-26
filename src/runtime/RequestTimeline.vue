@@ -102,6 +102,17 @@ function drawChart() {
       row[1] = `> ${row[3] - row[2]}ms`
     }
   })
+  /**
+   * If we don't have at least one row covering from the very beginning until the very end of the
+   * total recorded time, it can be misleading when there is a big gap between the moment the
+   * RequestTimeline instance is created and the first request being recorded. If the first
+   * request recorded starts 1.2s after the instance is created, it would still be displayed at
+   * the beginning of the column in the waterfall chart unless we add a column covering the whole
+   * time.
+   */
+  if (!rows.some(([,, start, end]) => start === 0 && end === veryEnd)) {
+    rows.unshift(['recorded time', `${veryEnd}ms`, 0, veryEnd])
+  }
 
   rows.sort((a, b) => a[2] - b[2])
   dataTable.addRows(rows)

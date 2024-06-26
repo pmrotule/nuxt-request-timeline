@@ -11,7 +11,7 @@ type AnyObject = Record<string, unknown>
 
 const MAX_LENGTH_QUERY_VARS_TIMELINE = 60
 
-export function getRequestTimeline(nuxtApp: NuxtApp) {
+export function getRequestTimeline<N extends NuxtApp>(nuxtApp: N) {
   return nuxtApp[`$${REQUEST_TIMELINE_KEY}`]
 }
 
